@@ -1,9 +1,13 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { ChevronLeft, ChevronRight, Plus, Utensils } from "lucide-react";
 import { useState } from "react";
-import { addDays, format, parseISO } from "date-fns";
+import { addDays, format, parseISO, startOfMonth } from "date-fns";
 import { Button } from "../../components/Button/Button";
 import { PageHeader } from "../../components/PageHeader/PageHeader";
+import {
+  RecordCalendar,
+  type CalendarMarker,
+} from "../../components/RecordCalendar/RecordCalendar";
 import { useToast } from "../../components/Toast/ToastContext";
 import { repositories } from "../../data/repositories";
 import { todayKey } from "../../domain/dates";
@@ -42,6 +46,7 @@ type EditorState = {
 export function DietDashboard() {
   const { notify, notifyUndo } = useToast();
   const [date, setDate] = useState<LocalDate>(todayKey());
+  const [month, setMonth] = useState(() => startOfMonth(new Date()));
   const [editor, setEditor] = useState<EditorState>(null);
   const allEntries = useLiveQuery(() => repositories.diet.list(), [], []);
   const entries = allEntries
@@ -54,12 +59,28 @@ export function DietDashboard() {
   const recordedMeals = new Set(entries.map((entry) => entry.meal));
   const totalPrice = entries.reduce((total, entry) => total + (entry.price ?? 0), 0);
   const isToday = date === todayKey();
+  const markers = allEntries.reduce<Partial<Record<LocalDate, CalendarMarker>>>(
+    (result, entry) => {
+      const marker = result[entry.date] ?? {
+        count: 0,
+        value: 0,
+        detail: "",
+      };
+      marker.count += 1;
+      marker.value += entry.price ?? 0;
+      marker.detail = `${marker.count} 项 · ${currency.format(marker.value)}`;
+      result[entry.date] = marker;
+      return result;
+    },
+    {},
+  );
 
   function moveDate(days: number) {
     const next = addDays(parseISO(date), days);
     const nextKey = format(next, "yyyy-MM-dd") as LocalDate;
     if (nextKey <= todayKey()) {
       setDate(nextKey);
+      setMonth(startOfMonth(next));
     }
   }
 
@@ -140,76 +161,90 @@ export function DietDashboard() {
         </div>
       </div>
 
-      <div className={styles.mealGrid}>
-        {MEALS.map((meal) => {
-          const mealEntries = entries.filter((entry) => entry.meal === meal.value);
-          const mealTotal = mealEntries.reduce(
-            (total, entry) => total + (entry.price ?? 0),
-            0,
-          );
-          return (
-            <article
-              key={meal.value}
-              className={`${styles.mealCard} ${
-                mealEntries.length > 0 ? styles.hasRecords : ""
-              }`}
-            >
-              <div className={styles.mealHead}>
-                <div>
-                  <span>{meal.helper}</span>
-                  <h2>{meal.label}</h2>
+      <div className={styles.workspace}>
+        <RecordCalendar
+          ariaLabel="饮食记录日历"
+          month={month}
+          selectedDate={date}
+          maxDate={todayKey()}
+          markers={markers}
+          onMonthChange={setMonth}
+          onSelectDate={(next) => {
+            setDate(next);
+            setMonth(startOfMonth(parseISO(next)));
+          }}
+        />
+        <div className={styles.mealGrid}>
+          {MEALS.map((meal) => {
+            const mealEntries = entries.filter((entry) => entry.meal === meal.value);
+            const mealTotal = mealEntries.reduce(
+              (total, entry) => total + (entry.price ?? 0),
+              0,
+            );
+            return (
+              <article
+                key={meal.value}
+                className={`${styles.mealCard} ${
+                  mealEntries.length > 0 ? styles.hasRecords : ""
+                }`}
+              >
+                <div className={styles.mealHead}>
+                  <div>
+                    <span>{meal.helper}</span>
+                    <h2>{meal.label}</h2>
+                  </div>
+                  <div className={styles.mealActions}>
+                    {mealEntries.length > 0 ? (
+                      <strong>{currency.format(mealTotal)}</strong>
+                    ) : null}
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => openEditor(meal.value)}
+                    >
+                      添加
+                    </Button>
+                  </div>
                 </div>
-                <div className={styles.mealActions}>
-                  {mealEntries.length > 0 ? (
-                    <strong>{currency.format(mealTotal)}</strong>
-                  ) : null}
-                  <Button
-                    size="sm"
-                    variant="ghost"
+                {mealEntries.length === 0 ? (
+                  <button
+                    type="button"
+                    className={styles.emptyMeal}
                     onClick={() => openEditor(meal.value)}
                   >
-                    添加
-                  </Button>
-                </div>
-              </div>
-              {mealEntries.length === 0 ? (
-                <button
-                  type="button"
-                  className={styles.emptyMeal}
-                  onClick={() => openEditor(meal.value)}
-                >
-                  <Utensils size={16} aria-hidden="true" />
-                  还没有记录{meal.label}
-                </button>
-              ) : (
-                <div className={styles.foodList}>
-                  {mealEntries.map((entry) => (
-                    <button
-                      key={entry.id}
-                      type="button"
-                      className={styles.foodRow}
-                      onClick={() => openEditor(meal.value, entry)}
-                    >
-                      <span className={styles.foodDot} aria-hidden="true" />
-                      <span className={styles.foodCopy}>
-                        <strong>{entry.food}</strong>
-                        <small>
-                          {entry.portion || "份量未记录"}
-                          {entry.notes ? ` · ${entry.notes}` : ""}
-                        </small>
-                      </span>
-                      <b className={styles.foodPrice}>
-                        {entry.price === undefined
-                          ? "未记价格"
-                          : currency.format(entry.price)}
-                      </b>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </article>
-          );
-        })}
+                    <Utensils size={16} aria-hidden="true" />
+                    还没有记录{meal.label}
+                  </button>
+                ) : (
+                  <div className={styles.foodList}>
+                    {mealEntries.map((entry) => (
+                      <button
+                        key={entry.id}
+                        type="button"
+                        className={styles.foodRow}
+                        onClick={() => openEditor(meal.value, entry)}
+                      >
+                        <span className={styles.foodDot} aria-hidden="true" />
+                        <span className={styles.foodCopy}>
+                          <strong>{entry.food}</strong>
+                          <small>
+                            {entry.portion || "份量未记录"}
+                            {entry.notes ? ` · ${entry.notes}` : ""}
+                          </small>
+                        </span>
+                        <b className={styles.foodPrice}>
+                          {entry.price === undefined
+                            ? "未记价格"
+                            : currency.format(entry.price)}
+                        </b>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
       </div>
 
       {editor ? (

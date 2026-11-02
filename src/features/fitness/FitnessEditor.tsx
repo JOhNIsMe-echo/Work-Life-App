@@ -9,6 +9,7 @@ import type { FitnessEntry } from "../../domain/types";
 type FitnessEditorProps = {
   open: boolean;
   entry: FitnessEntry | null;
+  defaultDate?: FitnessEntry["date"];
   onClose: () => void;
   onDelete: (entry: FitnessEntry) => Promise<void>;
 };
@@ -21,14 +22,20 @@ function timeFromIso(value: string): string {
   });
 }
 
-export function FitnessEditor({ open, entry, onClose, onDelete }: FitnessEditorProps) {
+export function FitnessEditor({
+  open,
+  entry,
+  defaultDate = todayKey(),
+  onClose,
+  onDelete,
+}: FitnessEditorProps) {
   const { notify } = useToast();
   const [activity, setActivity] = useState(entry?.activity ?? "");
   const [duration, setDuration] = useState(entry ? String(entry.durationMinutes) : "");
   const [calories, setCalories] = useState(
     entry?.calories ? String(entry.calories) : "",
   );
-  const [date, setDate] = useState(entry?.date ?? todayKey());
+  const [date, setDate] = useState(entry?.date ?? defaultDate);
   const [time, setTime] = useState(entry ? timeFromIso(entry.performedAt) : "18:00");
   const [feeling, setFeeling] = useState(entry?.feeling ?? "");
   const [error, setError] = useState("");

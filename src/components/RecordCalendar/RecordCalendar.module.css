@@ -1,0 +1,138 @@
+.calendar {
+  padding: 14px;
+  border: 1px solid var(--app-border);
+  border-radius: 13px;
+  background: var(--app-surface);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.header > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.header small {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.navButton {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  color: var(--app-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.navButton:hover:not(:disabled) {
+  color: var(--app-text);
+  background: var(--app-surface-muted);
+}
+
+.navButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.weekdays,
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.weekdays {
+  margin-bottom: 4px;
+}
+
+.weekdays span {
+  padding: 4px 0;
+  color: var(--app-muted);
+  font-size: 9px;
+  text-align: center;
+}
+
+.grid {
+  gap: 3px;
+}
+
+.blank {
+  min-height: 42px;
+}
+
+.day {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 42px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--app-text);
+  background: transparent;
+  cursor: pointer;
+}
+
+.day:hover:not(:disabled) {
+  background: var(--app-surface-muted);
+}
+
+.day:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.day > span {
+  font-size: 11px;
+}
+
+.day > i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--page-accent);
+}
+
+.day small {
+  min-height: 9px;
+  color: var(--app-muted);
+  font-size: 8px;
+  line-height: 1;
+}
+
+.today {
+  border-color: color-mix(in srgb, var(--page-accent) 30%, var(--app-border));
+}
+
+.selected {
+  color: var(--app-on-accent);
+  background: var(--page-accent);
+}
+
+.selected small {
+  color: inherit;
+  opacity: 0.72;
+}
+
+.selected > i {
+  background: currentColor;
+}

@@ -111,22 +111,23 @@ test("creates all core record types and restores them after a new page opens", a
   await page.getByLabel("要做的事").fill("整理周报资料");
   await page.getByLabel("补充说明").fill("今天下班前完成");
   await page.getByRole("checkbox", { name: "标记为重要事项" }).check();
-  await page.getByRole("button", { name: "保存" }).click();
+  await page.getByRole("button", { name: "保存", exact: true }).click();
   await expect(page.getByText("整理周报资料")).toBeVisible();
 
   await page.getByRole("link", { name: "首页总览" }).click();
   await page.getByRole("button", { name: "新增备忘" }).click();
   await page.getByLabel("备忘内容").fill("周末试做番茄牛腩");
   await page.getByRole("checkbox", { name: "固定到首页顶部" }).check();
-  await page.getByRole("button", { name: "保存" }).click();
+  await page.getByRole("button", { name: "保存", exact: true }).click();
   await expect(page.getByText("周末试做番茄牛腩")).toBeVisible();
 
   await page.getByRole("link", { name: "健身记录" }).click();
   await page.getByRole("button", { name: "记录运动" }).click();
   await page.getByLabel("运动项目").fill("户外跑步");
   await page.getByLabel("运动时长（分钟）").fill("35");
-  await page.getByRole("button", { name: "保存" }).click();
+  await page.getByRole("button", { name: "保存", exact: true }).click();
   await expect(page.getByText("户外跑步")).toBeVisible();
+  await expect(page.getByRole("button", { name: /1 项 · 35 分钟/ })).toBeVisible();
 
   await page.getByRole("link", { name: "饮食记录" }).click();
   await expect(page.getByText(/星期/)).toBeVisible();
@@ -134,16 +135,17 @@ test("creates all core record types and restores them after a new page opens", a
   await page.getByLabel("吃了什么").fill("鸡胸肉沙拉");
   await page.getByLabel("大致份量").fill("1 份");
   await page.getByLabel("价格（元，可不填）").fill("18.50");
-  await page.getByRole("button", { name: "保存" }).click();
+  await page.getByRole("button", { name: "保存", exact: true }).click();
   await expect(page.getByText("鸡胸肉沙拉")).toBeVisible();
   await expect(page.getByText("¥18.50").first()).toBeVisible();
+  await expect(page.getByRole("button", { name: /1 项 · ¥18.50/ })).toBeVisible();
 
   await page.getByRole("link", { name: "游戏娱乐" }).click();
   await page.getByRole("button", { name: "添加项目" }).click();
   await page.getByLabel("项目名称").fill("星露谷物语");
   await page.getByLabel("记录日期").fill("2026-11-02");
   await page.getByLabel("当前状态").selectOption("playing");
-  await page.getByRole("button", { name: "保存" }).click();
+  await page.getByRole("button", { name: "保存", exact: true }).click();
   await expect(page.getByText("星露谷物语")).toBeVisible();
   await expect(page.getByText("游戏 · 11月2日")).toBeVisible();
 
@@ -152,7 +154,7 @@ test("creates all core record types and restores them after a new page opens", a
   await page.getByLabel("学科或学习方向").fill("阅读");
   await page.getByLabel("这次学了什么").fill("《设计心理学》第 3 章");
   await page.getByLabel("学习时长（分钟）").fill("45");
-  await page.getByRole("button", { name: "保存" }).click();
+  await page.getByRole("button", { name: "保存", exact: true }).click();
   await expect(page.getByText("《设计心理学》第 3 章")).toBeVisible();
 
   await page.getByRole("link", { name: "心情记录" }).click();
@@ -160,7 +162,7 @@ test("creates all core record types and restores them after a new page opens", a
   await page.getByRole("radio", { name: "平静" }).check();
   await page.getByLabel("心情标签").fill("期待、有点累");
   await page.getByLabel("想记下点什么").fill("事情在慢慢推进");
-  await page.getByRole("button", { name: "保存" }).click();
+  await page.getByRole("button", { name: "保存", exact: true }).click();
   await expect(page.getByText("事情在慢慢推进").first()).toBeVisible();
 
   await page.getByRole("link", { name: "首页总览" }).click();
@@ -182,7 +184,7 @@ test("previews, exports, clears, and restores a real backup file", async ({ page
   await page.getByRole("link", { name: "今日待办" }).click();
   await page.getByRole("button", { name: "新建待办" }).click();
   await page.getByLabel("要做的事").fill("需要进入备份的待办");
-  await page.getByRole("button", { name: "保存" }).click();
+  await page.getByRole("button", { name: "保存", exact: true }).click();
 
   await page.getByRole("link", { name: "数据与设置" }).click();
   const downloadPromise = page.waitForEvent("download");
@@ -282,7 +284,7 @@ test("persists records after the browser process is closed and reopened", async 
     await page.goto("http://127.0.0.1:4173/#/todos");
     await page.getByRole("button", { name: "新建待办" }).click();
     await page.getByLabel("要做的事").fill("浏览器重启后仍需保留");
-    await page.getByRole("button", { name: "保存" }).click();
+    await page.getByRole("button", { name: "保存", exact: true }).click();
     await expect(page.getByText("浏览器重启后仍需保留")).toBeVisible();
     await context.close();
 

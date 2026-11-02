@@ -27,6 +27,7 @@ describe("fitness and diet records", () => {
     const activity = await screen.findByText("户外跑步");
     expect(activity).toBeInTheDocument();
     expect(within(activity.closest("article")!).getByText("35")).toBeVisible();
+    expect(screen.getByRole("button", { name: /1 项 · 35 分钟/ })).toBeInTheDocument();
 
     await user.click(screen.getByRole("link", { name: "首页总览" }));
     expect((await screen.findAllByText("35 分钟")).length).toBeGreaterThan(0);
@@ -47,6 +48,7 @@ describe("fitness and diet records", () => {
     expect(await screen.findByText("鸡胸肉沙拉")).toBeInTheDocument();
     expect(screen.getByText("午餐")).toBeInTheDocument();
     expect(screen.getAllByText("¥18.50").length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByRole("button", { name: /1 项 · ¥18.50/ })).toBeInTheDocument();
 
     await user.click(screen.getByRole("link", { name: "首页总览" }));
     expect(await screen.findByText("已记录 1 / 4 餐")).toBeInTheDocument();
