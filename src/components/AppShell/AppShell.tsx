@@ -1,8 +1,10 @@
-import { Sprout } from "lucide-react";
-import type { CSSProperties, ReactNode } from "react";
+import { Save, Sprout } from "lucide-react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { PAGE_DEFINITIONS, pageKeyFromPath } from "../../app/navigation";
 import { useSettings } from "../../app/settings-context";
+import { Button } from "../Button/Button";
+import { useToast } from "../Toast/ToastContext";
 import { useSaveStatus } from "../../data/useSaveStatus";
 import { readableTextColor } from "../../domain/pageColors";
 import styles from "./AppShell.module.css";
@@ -17,7 +19,9 @@ const SAVE_LABELS = {
 export function AppShell({ children }: { children: ReactNode }) {
   const location = useLocation();
   const activePage = pageKeyFromPath(location.pathname);
-  const { settings, ready } = useSettings();
+  const { settings, ready, updateSettings } = useSettings();
+  const { notify } = useToast();
+  const [manualSaving, setManualSaving] = useState(false);
   const saveStatus = useSaveStatus();
   const activeColor = settings.pageColors[activePage];
   const shellStyle = {
@@ -26,6 +30,25 @@ export function AppShell({ children }: { children: ReactNode }) {
     "--app-on-accent": readableTextColor(activeColor),
     "--page-accent-soft": `color-mix(in srgb, ${activeColor} 13%, var(--app-surface))`,
   } as CSSProperties;
+
+  async function manualSave() {
+    setManualSaving(true);
+    try {
+      await updateSettings({
+        lastManualSaveAt: new Date().toISOString(),
+      });
+      try {
+        await navigator.storage?.persist?.();
+      } catch {
+        // Persistence protection is best-effort; the IndexedDB write already succeeded.
+      }
+      notify("数据已手动保存到本机");
+    } catch {
+      notify("手动保存失败，请重试");
+    } finally {
+      setManualSaving(false);
+    }
+  }
 
   return (
     <div
@@ -69,6 +92,16 @@ export function AppShell({ children }: { children: ReactNode }) {
               );
             })}
           </nav>
+
+          <Button
+            variant="quiet"
+            className={styles.manualSave}
+            disabled={manualSaving}
+            onClick={() => void manualSave()}
+          >
+            <Save size={14} aria-hidden="true" />
+            {manualSaving ? "正在保存…" : "保存到本机"}
+          </Button>
 
           <div
             className={`${styles.saveNote} ${saveStatus.status === "error" ? styles.saveError : ""}`}

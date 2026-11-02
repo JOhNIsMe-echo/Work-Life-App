@@ -85,6 +85,7 @@ export interface AppSettings extends BaseRecord {
   todoSort: TodoSort;
   pageColors: PageColors;
   lastBackupAt?: string;
+  lastManualSaveAt?: string;
 }
 
 export interface AppData {

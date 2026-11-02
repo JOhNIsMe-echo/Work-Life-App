@@ -127,6 +127,11 @@
   border-top: 1px solid var(--app-border);
 }
 
+.manualSave {
+  width: 100%;
+  margin-bottom: 2px;
+}
+
 .saveDot {
   width: 7px;
   height: 7px;
@@ -193,6 +198,12 @@
   .saveNote {
     display: none;
   }
+
+  .manualSave {
+    width: auto;
+    align-self: flex-end;
+    margin: 0;
+  }
 }
 
 @media (max-width: 620px) {
@@ -212,5 +223,9 @@
 
   .brand small {
     display: none;
+  }
+
+  .manualSave {
+    width: 100%;
   }
 }

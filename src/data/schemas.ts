@@ -96,6 +96,7 @@ export const appSettingsSchema = z.object({
   todoSort: z.enum(["importance", "newest", "title"]).default("importance"),
   pageColors: pageColorsSchema,
   lastBackupAt: isoDateTime.optional(),
+  lastManualSaveAt: isoDateTime.optional(),
 });
 
 export const appDataSchema = z.object({

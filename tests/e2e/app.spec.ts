@@ -66,6 +66,30 @@ test("renders the refined minimalist shell consistently", async ({ page }) => {
   expect(layout.pageOverflow).toBeLessThanOrEqual(1);
 });
 
+test("writes a manual save checkpoint on demand", async ({ page }) => {
+  await page.getByRole("button", { name: "保存到本机" }).click();
+  await expect(page.getByText("数据已手动保存到本机")).toBeVisible();
+
+  const savedAt = await page.evaluate(
+    () =>
+      new Promise<string | undefined>((resolve, reject) => {
+        const request = indexedDB.open("personal-work-life");
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          const database = request.result;
+          const transaction = database.transaction("settings", "readonly");
+          const getRequest = transaction.objectStore("settings").get("app");
+          getRequest.onerror = () => reject(getRequest.error);
+          getRequest.onsuccess = () => {
+            resolve(getRequest.result?.lastManualSaveAt);
+            database.close();
+          };
+        };
+      }),
+  );
+  expect(savedAt).toBeTruthy();
+});
+
 test("creates all core record types and restores them after a new page opens", async ({
   page,
   context,
