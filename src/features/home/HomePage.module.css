@@ -66,8 +66,9 @@
   gap: 4px 10px;
   padding: 12px 13px;
   border: 1px solid var(--app-border);
-  border-radius: 13px;
+  border-radius: 12px;
   background: var(--app-surface);
+  box-shadow: none;
 }
 
 .metricIcon {
@@ -129,8 +130,9 @@
 .panel {
   padding: 16px;
   border: 1px solid var(--app-border);
-  border-radius: 15px;
+  border-radius: 14px;
   background: var(--app-surface);
+  box-shadow: none;
 }
 
 .panelHead {
@@ -145,6 +147,8 @@
 .sectionTitle > div > span {
   color: var(--app-muted);
   font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.055em;
 }
 
 .panelHead h2,
@@ -361,18 +365,15 @@
   align-items: flex-start;
   padding: 13px;
   border: 1px solid var(--app-border);
-  border-radius: 13px;
+  border-radius: 12px;
   color: var(--app-text);
   background: var(--app-surface);
   text-decoration: none;
-  transition:
-    border-color 150ms ease,
-    transform 150ms ease;
+  transition: border-color 150ms ease;
 }
 
 .lifeCard:hover {
   border-color: color-mix(in srgb, var(--card-accent) 45%, var(--app-border));
-  transform: translateY(-1px);
 }
 
 .lifeIcon {

@@ -1,13 +1,13 @@
 :root {
   color-scheme: light dark;
-  --app-bg: light-dark(#eeeee8, #171b18);
-  --app-shell: light-dark(#f8f7f1, #202520);
-  --app-surface: light-dark(#fffefa, #262c27);
-  --app-surface-muted: light-dark(#eef0ea, #2b322c);
-  --app-text: light-dark(#20241f, #edf1eb);
-  --app-muted: light-dark(#687168, #a8b2a9);
-  --app-border: light-dark(#dcdfd7, #3c453e);
-  --app-border-strong: light-dark(#c9cec3, #556158);
+  --app-bg: light-dark(#e8e9e4, #101311);
+  --app-shell: light-dark(#f7f7f3, #181c19);
+  --app-surface: light-dark(#fdfdfb, #202420);
+  --app-surface-muted: light-dark(#eff0ec, #242924);
+  --app-text: light-dark(#171a17, #f1f3ef);
+  --app-muted: light-dark(#737a73, #9ca69d);
+  --app-border: light-dark(#dedfd8, #353c36);
+  --app-border-strong: light-dark(#c7cac1, #4d574f);
   --app-accent: #426a54;
   --app-accent-soft: light-dark(#e2ece3, #30473a);
   --app-on-accent: #f8fbf8;
@@ -15,9 +15,9 @@
   --app-danger-soft: light-dark(#f4e7e7, #432f31);
   --app-warning: light-dark(#86622f, #e2bd7d);
   --app-success: light-dark(#416b52, #a6cfb0);
-  --app-radius-sm: 8px;
-  --app-radius-md: 12px;
-  --app-radius-lg: 18px;
+  --app-radius-sm: 7px;
+  --app-radius-md: 11px;
+  --app-radius-lg: 17px;
   --app-space-1: 4px;
   --app-space-2: 8px;
   --app-space-3: 12px;
@@ -26,14 +26,17 @@
   --app-space-6: 24px;
   --app-space-8: 32px;
   --app-shadow: light-dark(
-    0 18px 50px rgb(40 48 40 / 12%),
-    0 18px 50px rgb(0 0 0 / 34%)
+    0 20px 56px rgb(30 36 31 / 9%),
+    0 20px 56px rgb(0 0 0 / 30%)
   );
   --app-shadow-soft: light-dark(
-    0 6px 20px rgb(40 48 40 / 8%),
-    0 6px 20px rgb(0 0 0 / 22%)
+    0 4px 16px rgb(30 36 31 / 5%),
+    0 4px 16px rgb(0 0 0 / 18%)
   );
-  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  font-family:
+    "Aptos", "Segoe UI Variable", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei",
+    sans-serif;
+  font-variant-numeric: tabular-nums;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }

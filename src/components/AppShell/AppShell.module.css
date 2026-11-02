@@ -1,14 +1,8 @@
 .themeRoot {
   min-height: 100vh;
-  padding: 16px;
+  padding: 20px;
   color: var(--app-text);
-  background:
-    radial-gradient(
-      circle at 10% 5%,
-      color-mix(in srgb, var(--page-accent) 10%, transparent),
-      transparent 30%
-    ),
-    var(--app-bg);
+  background: var(--app-bg);
 }
 
 .themeRoot[data-theme="light"] {
@@ -22,12 +16,12 @@
 .appWindow {
   display: grid;
   width: min(1440px, 100%);
-  min-height: calc(100vh - 32px);
+  min-height: calc(100vh - 40px);
   margin: 0 auto;
   overflow: clip;
-  grid-template-columns: 204px minmax(0, 1fr);
+  grid-template-columns: 216px minmax(0, 1fr);
   border: 1px solid var(--app-border);
-  border-radius: 22px;
+  border-radius: 24px;
   background: var(--app-shell);
   box-shadow: var(--app-shadow);
 }
@@ -36,26 +30,26 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: 18px;
-  padding: 20px 13px 15px;
+  gap: 22px;
+  padding: 24px 16px 18px;
   border-right: 1px solid var(--app-border);
-  background: var(--app-surface-muted);
+  background: var(--app-shell);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 0 7px;
+  gap: 11px;
+  padding: 0 8px;
 }
 
 .brandMark {
   display: grid;
-  width: 35px;
-  height: 35px;
-  flex: 0 0 35px;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
   place-items: center;
-  border-radius: 11px;
+  border-radius: 12px;
   color: var(--page-accent);
   background: var(--page-accent-soft);
 }
@@ -67,8 +61,9 @@
 }
 
 .brand strong {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
+  letter-spacing: -0.015em;
 }
 
 .brand small {
@@ -81,18 +76,19 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .navLink {
   display: grid;
-  min-height: 40px;
+  position: relative;
+  min-height: 42px;
   grid-template-columns: 20px minmax(0, 1fr);
   align-items: center;
   gap: 10px;
-  padding: 0 11px;
-  border: 1px solid transparent;
-  border-radius: 10px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 9px;
   color: var(--app-muted);
   text-decoration: none;
 }
@@ -102,23 +98,32 @@
 }
 
 .navLink:hover {
-  border-color: var(--app-border);
   color: var(--app-text);
-  background: var(--app-surface);
+  background: var(--app-surface-muted);
 }
 
 .navLink.active {
-  border-color: color-mix(in srgb, var(--nav-accent) 28%, var(--app-border));
   color: var(--app-text);
-  background: color-mix(in srgb, var(--nav-accent) 9%, var(--app-surface));
-  box-shadow: 0 2px 8px rgb(31 37 32 / 5%);
+  background: color-mix(in srgb, var(--nav-accent) 8%, var(--app-shell));
+  box-shadow: none;
+}
+
+.navLink.active::before {
+  position: absolute;
+  top: 11px;
+  bottom: 11px;
+  left: 0;
+  width: 2px;
+  border-radius: 99px;
+  background: var(--nav-accent);
+  content: "";
 }
 
 .saveNote {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 11px;
+  padding: 14px 10px 4px;
   border-top: 1px solid var(--app-border);
 }
 
@@ -151,7 +156,12 @@
 
 .main {
   min-width: 0;
-  padding: clamp(18px, 2.3vw, 30px);
+  padding: clamp(24px, 2.8vw, 38px);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--page-accent) 2.5%, var(--app-shell)),
+    var(--app-shell) 360px
+  );
 }
 
 @media (max-width: 860px) {
@@ -188,7 +198,6 @@
 @media (max-width: 620px) {
   .themeRoot {
     padding: 0;
-    background: var(--app-shell);
   }
 
   .appWindow {

@@ -41,6 +41,31 @@ test("renders eight navigable pages without runtime errors", async ({ page }) =>
   expect(errors).toEqual([]);
 });
 
+test("renders the refined minimalist shell consistently", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.reload();
+
+  await expect(page.locator("aside")).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "主要页面" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "今天，按自己的节奏来" })).toHaveCSS(
+    "font-size",
+    "36px",
+  );
+  await expect(page.getByRole("link", { name: "首页总览" })).toHaveCSS(
+    "min-height",
+    "42px",
+  );
+
+  const layout = await page.evaluate(() => ({
+    shellRadius: getComputedStyle(document.querySelector('[class*="appWindow"]')!)
+      .borderRadius,
+    pageOverflow:
+      document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  }));
+  expect(layout.shellRadius).toBe("24px");
+  expect(layout.pageOverflow).toBeLessThanOrEqual(1);
+});
+
 test("creates all core record types and restores them after a new page opens", async ({
   page,
   context,
