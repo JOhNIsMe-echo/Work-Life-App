@@ -91,6 +91,7 @@ export const appSettingsSchema = z.object({
   ...baseRecord,
   id: z.literal("app"),
   theme: z.enum(["system", "light", "dark"]),
+  todoSort: z.enum(["importance", "newest", "title"]).default("importance"),
   pageColors: pageColorsSchema,
   lastBackupAt: isoDateTime.optional(),
 });

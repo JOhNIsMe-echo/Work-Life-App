@@ -202,6 +202,7 @@ export class SettingsRepository {
       createdAt: timestamp,
       updatedAt: timestamp,
       theme: "system",
+      todoSort: "importance",
       pageColors: { ...DEFAULT_PAGE_COLORS },
     };
   }

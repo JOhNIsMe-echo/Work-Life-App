@@ -96,6 +96,7 @@ function makeData(id: string): AppData {
     settings: {
       id: "app",
       theme: "dark",
+      todoSort: "importance",
       pageColors: {
         ...DEFAULT_PAGE_COLORS,
         home: "#123456",

@@ -12,6 +12,7 @@ const fallbackSettings: AppSettings = {
   createdAt: fallbackTimestamp,
   updatedAt: fallbackTimestamp,
   theme: "system",
+  todoSort: "importance",
   pageColors: { ...DEFAULT_PAGE_COLORS },
 };
 

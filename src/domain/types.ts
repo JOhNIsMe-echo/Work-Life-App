@@ -2,6 +2,7 @@ export type PageKey =
   "home" | "todo" | "fitness" | "diet" | "fun" | "study" | "mood" | "data";
 
 export type ThemeMode = "system" | "light" | "dark";
+export type TodoSort = "importance" | "newest" | "title";
 export type LocalDate = `${number}-${number}-${number}`;
 export type MealType = "breakfast" | "lunch" | "dinner" | "snack";
 export type EntertainmentCategory = "game" | "movie" | "series" | "other";
@@ -79,6 +80,7 @@ export type PageColors = Record<PageKey, string>;
 export interface AppSettings extends BaseRecord {
   id: "app";
   theme: ThemeMode;
+  todoSort: TodoSort;
   pageColors: PageColors;
   lastBackupAt?: string;
 }

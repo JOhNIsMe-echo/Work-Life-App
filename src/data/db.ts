@@ -33,6 +33,26 @@ export class WorkLifeDatabase extends Dexie {
       moodEntries: "id, date, recordedAt",
       settings: "id",
     });
+
+    this.version(2)
+      .stores({
+        todos: "id, date, completed, updatedAt",
+        memos: "id, pinned, updatedAt",
+        fitnessEntries: "id, date, performedAt",
+        dietEntries: "id, date, meal",
+        entertainmentItems: "id, status, updatedAt",
+        studyEntries: "id, date, subject",
+        moodEntries: "id, date, recordedAt",
+        settings: "id",
+      })
+      .upgrade(async (transaction) => {
+        await transaction
+          .table<AppSettings>("settings")
+          .toCollection()
+          .modify((settings) => {
+            settings.todoSort ??= "importance";
+          });
+      });
   }
 }
 

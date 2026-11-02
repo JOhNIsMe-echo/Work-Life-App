@@ -57,6 +57,26 @@
   margin-bottom: 16px;
 }
 
+.sortControl {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  margin: -4px 0 14px;
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.sortControl select {
+  min-height: 31px;
+  padding: 0 28px 0 10px;
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  color: var(--app-text);
+  background: var(--app-surface);
+  font-size: 11px;
+}
+
 .filters button {
   min-height: 31px;
   padding: 0 11px;

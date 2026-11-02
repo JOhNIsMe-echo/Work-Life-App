@@ -70,6 +70,7 @@ describe("repositories", () => {
     const repositories = createRepositories(database, new SaveStatusStore());
     const defaults = await repositories.settings.get();
     expect(defaults.theme).toBe("system");
+    expect(defaults.todoSort).toBe("importance");
     expect(defaults.pageColors.home).toMatch(/^#/);
 
     const updated = await repositories.settings.update({ theme: "dark" });

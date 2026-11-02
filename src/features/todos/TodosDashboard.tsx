@@ -5,9 +5,11 @@ import { Button } from "../../components/Button/Button";
 import { EmptyState } from "../../components/EmptyState/EmptyState";
 import { PageHeader } from "../../components/PageHeader/PageHeader";
 import { useToast } from "../../components/Toast/ToastContext";
+import { useSettings } from "../../app/settings-context";
 import { repositories } from "../../data/repositories";
 import { isTodoOverdue, todayKey } from "../../domain/dates";
-import type { Todo } from "../../domain/types";
+import { TODO_SORT_LABELS, sortTodos } from "../../domain/todoSort";
+import type { Todo, TodoSort } from "../../domain/types";
 import { TodoEditor } from "./TodoEditor";
 import { TodoTaskRow } from "./TodoTaskRow";
 import styles from "./TodosPage.module.css";
@@ -23,6 +25,7 @@ const FILTER_LABELS: Record<Filter, string> = {
 
 export function TodosDashboard() {
   const { notify, notifyUndo } = useToast();
+  const { settings, updateSettings } = useSettings();
   const [filter, setFilter] = useState<Filter>("all");
   const [editorOpen, setEditorOpen] = useState(false);
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
@@ -43,8 +46,13 @@ export function TodosDashboard() {
           left.completedAt ?? left.updatedAt,
         ),
       );
-    return { pending, overdue, done };
-  }, [todos]);
+    const sort = settings.todoSort;
+    return {
+      pending: sortTodos(pending, sort),
+      overdue: sortTodos(overdue, sort),
+      done: sortTodos(done, sort),
+    };
+  }, [settings.todoSort, todos]);
 
   const visibleGroups = (
     [
@@ -157,6 +165,24 @@ export function TodosDashboard() {
           );
         })}
       </div>
+      <label className={styles.sortControl}>
+        <span>排序</span>
+        <select
+          aria-label="待办排序"
+          value={settings.todoSort}
+          onChange={(event) =>
+            void updateSettings({
+              todoSort: event.target.value as TodoSort,
+            })
+          }
+        >
+          {Object.entries(TODO_SORT_LABELS).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </label>
 
       {todos.length === 0 ? (
         <EmptyState
