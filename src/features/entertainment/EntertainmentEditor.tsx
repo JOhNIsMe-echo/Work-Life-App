@@ -3,6 +3,7 @@ import { Button } from "../../components/Button/Button";
 import { EditDrawer } from "../../components/EditDrawer/EditDrawer";
 import { useToast } from "../../components/Toast/ToastContext";
 import { repositories } from "../../data/repositories";
+import { todayKey } from "../../domain/dates";
 import type {
   EntertainmentCategory,
   EntertainmentItem,
@@ -42,6 +43,7 @@ export function EntertainmentEditor({
     item?.category ?? "game",
   );
   const [status, setStatus] = useState<EntertainmentStatus>(item?.status ?? "wanted");
+  const [date, setDate] = useState(item?.date ?? todayKey());
   const [minutes, setMinutes] = useState(item ? String(item.totalMinutes) : "0");
   const [rating, setRating] = useState(item?.rating ? String(item.rating) : "");
   const [notes, setNotes] = useState(item?.notes ?? "");
@@ -75,6 +77,7 @@ export function EntertainmentEditor({
         title: title.trim(),
         category,
         status,
+        date: date as EntertainmentItem["date"],
         totalMinutes: parsedMinutes,
         rating: parsedRating,
         notes: notes.trim() || undefined,
@@ -166,6 +169,16 @@ export function EntertainmentEditor({
         </div>
         <div className="fieldGrid">
           <label className="field">
+            <span>记录日期</span>
+            <input
+              type="date"
+              value={date}
+              onChange={(event) =>
+                setDate(event.target.value as EntertainmentItem["date"])
+              }
+            />
+          </label>
+          <label className="field">
             <span>累计时长（分钟）</span>
             <input
               type="number"
@@ -175,18 +188,18 @@ export function EntertainmentEditor({
               onChange={(event) => setMinutes(event.target.value)}
             />
           </label>
-          <label className="field">
-            <span>个人评分</span>
-            <select value={rating} onChange={(event) => setRating(event.target.value)}>
-              <option value="">未评分</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </label>
         </div>
+        <label className="field">
+          <span>个人评分</span>
+          <select value={rating} onChange={(event) => setRating(event.target.value)}>
+            <option value="">未评分</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </label>
         <label className="field">
           <span>感受或备注</span>
           <textarea

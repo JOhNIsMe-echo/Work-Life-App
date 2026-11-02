@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import Dexie from "dexie";
 import { WorkLifeDatabase } from "../../src/data/db";
 import { createRepositories } from "../../src/data/repositories";
 import { SaveStatusStore } from "../../src/data/saveStatus";
@@ -75,5 +76,28 @@ describe("repositories", () => {
 
     const updated = await repositories.settings.update({ theme: "dark" });
     expect(updated.theme).toBe("dark");
+  });
+
+  it("backfills entertainment dates when upgrading an existing database", async () => {
+    const legacyName = `legacy-${crypto.randomUUID()}`;
+    const legacy = new Dexie(legacyName);
+    legacy.version(1).stores({
+      entertainmentItems: "id, status, updatedAt",
+    });
+    await legacy.table("entertainmentItems").add({
+      id: "legacy-entertainment",
+      title: "旧项目",
+      category: "game",
+      status: "playing",
+      totalMinutes: 30,
+      createdAt: "2026-11-01T08:00:00.000Z",
+      updatedAt: "2026-11-01T08:00:00.000Z",
+    });
+    legacy.close();
+
+    const upgraded = new WorkLifeDatabase(legacyName);
+    const item = await upgraded.entertainmentItems.get("legacy-entertainment");
+    expect(item?.date).toBe("2026-11-01");
+    await upgraded.delete();
   });
 });

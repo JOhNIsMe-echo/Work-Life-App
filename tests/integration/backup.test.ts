@@ -65,6 +65,7 @@ function makeData(id: string): AppData {
         title: "游戏",
         category: "game",
         status: "playing",
+        date: "2026-11-01",
         totalMinutes: 60,
         createdAt: timestamp,
         updatedAt: timestamp,
@@ -135,7 +136,7 @@ describe("backup and restore", () => {
     const valid = createBackup(source);
 
     expect(() => parseBackup("{not-json")).toThrow("有效的 JSON");
-    expect(() => parseBackup(JSON.stringify({ ...valid, version: 2 }))).toThrow(
+    expect(() => parseBackup(JSON.stringify({ ...valid, version: 99 }))).toThrow(
       "格式不正确",
     );
 
@@ -148,6 +149,26 @@ describe("backup and restore", () => {
       },
     };
     expect(() => parseBackup(JSON.stringify(duplicated))).toThrow("重复记录");
+  });
+
+  it("upgrades version 1 backups by deriving entertainment dates", () => {
+    const source = makeData("legacy");
+    const legacyEntertainment = {
+      ...source.entertainmentItems[0]!,
+    } as Record<string, unknown>;
+    delete legacyEntertainment.date;
+    const legacy = {
+      ...createBackup(source),
+      version: 1,
+      data: {
+        ...source,
+        entertainmentItems: [legacyEntertainment],
+      },
+    };
+
+    const parsed = parseBackup(JSON.stringify(legacy));
+    expect(parsed.version).toBe(2);
+    expect(parsed.data.entertainmentItems[0]?.date).toBe("2026-11-01");
   });
 
   it("replaces the previous data atomically and preserves settings on clear", async () => {

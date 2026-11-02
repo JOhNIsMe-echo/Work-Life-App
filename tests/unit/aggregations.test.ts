@@ -53,6 +53,7 @@ describe("home aggregation", () => {
         title: "游戏",
         category: "game",
         status: "playing",
+        date: "2026-11-01",
         totalMinutes: 30,
       },
     ];

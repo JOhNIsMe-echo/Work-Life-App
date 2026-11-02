@@ -1,6 +1,7 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { Clock3, Gamepad2, Plus, Star } from "lucide-react";
 import { useMemo, useState } from "react";
+import { format, parseISO } from "date-fns";
 import { Button } from "../../components/Button/Button";
 import { EmptyState } from "../../components/EmptyState/EmptyState";
 import { PageHeader } from "../../components/PageHeader/PageHeader";
@@ -156,7 +157,10 @@ export function EntertainmentDashboard() {
               </div>
               <div className={styles.itemBody}>
                 <div className={styles.itemTop}>
-                  <span>{CATEGORY_LABELS[item.category]}</span>
+                  <span>
+                    {CATEGORY_LABELS[item.category]} ·{" "}
+                    {format(parseISO(item.date), "M月d日")}
+                  </span>
                   <select
                     aria-label={`更新状态：${item.title}`}
                     value={item.status}

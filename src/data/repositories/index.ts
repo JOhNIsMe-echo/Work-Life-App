@@ -157,8 +157,10 @@ export class EntertainmentRepository extends RecordRepository<EntertainmentItem>
   }
 
   async ordered(): Promise<EntertainmentItem[]> {
-    return (await this.list()).toSorted((left, right) =>
-      right.updatedAt.localeCompare(left.updatedAt),
+    return (await this.list()).toSorted(
+      (left, right) =>
+        right.date.localeCompare(left.date) ||
+        right.updatedAt.localeCompare(left.updatedAt),
     );
   }
 }

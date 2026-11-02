@@ -117,9 +117,11 @@ test("creates all core record types and restores them after a new page opens", a
   await page.getByRole("link", { name: "游戏娱乐" }).click();
   await page.getByRole("button", { name: "添加项目" }).click();
   await page.getByLabel("项目名称").fill("星露谷物语");
+  await page.getByLabel("记录日期").fill("2026-11-02");
   await page.getByLabel("当前状态").selectOption("playing");
   await page.getByRole("button", { name: "保存" }).click();
   await expect(page.getByText("星露谷物语")).toBeVisible();
+  await expect(page.getByText("游戏 · 11月2日")).toBeVisible();
 
   await page.getByRole("link", { name: "学业记录" }).click();
   await page.getByRole("button", { name: "记录学习" }).click();

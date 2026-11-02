@@ -53,6 +53,7 @@ export interface EntertainmentItem extends BaseRecord {
   title: string;
   category: EntertainmentCategory;
   status: EntertainmentStatus;
+  date: LocalDate;
   totalMinutes: number;
   rating?: number;
   notes?: string;

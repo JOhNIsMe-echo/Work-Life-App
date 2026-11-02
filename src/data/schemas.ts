@@ -52,6 +52,7 @@ export const entertainmentItemSchema = z.object({
   title: z.string().trim().min(1),
   category: z.enum(["game", "movie", "series", "other"]),
   status: z.enum(["wanted", "playing", "completed", "paused"]),
+  date: localDate,
   totalMinutes: z.number().int().nonnegative(),
   rating: z.number().min(1).max(5).optional(),
   notes: z.string().optional(),

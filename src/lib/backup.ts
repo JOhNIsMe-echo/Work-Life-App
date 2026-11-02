@@ -1,7 +1,12 @@
 import { z } from "zod";
 import type { WorkLifeDatabase } from "../data/db";
-import { appDataSchema, appSettingsSchema } from "../data/schemas";
-import type { AppData, AppSettings } from "../domain/types";
+import {
+  appDataSchema,
+  appSettingsSchema,
+  entertainmentItemSchema,
+} from "../data/schemas";
+import { localDateKey } from "../domain/dates";
+import type { AppData, AppSettings, EntertainmentItem } from "../domain/types";
 
 const moduleCountsSchema = z.object({
   todos: z.number().int().nonnegative(),
@@ -15,17 +20,32 @@ const moduleCountsSchema = z.object({
 
 export type ModuleCounts = z.infer<typeof moduleCountsSchema>;
 
-export const backupSchema = z.object({
+const backupEnvelope = {
   format: z.literal("worklife-backup"),
-  version: z.literal(1),
   exportedAt: z.string().datetime({ offset: true }),
   counts: moduleCountsSchema,
-  data: appDataSchema,
+};
+
+const legacyAppDataSchema = appDataSchema.extend({
+  entertainmentItems: z.array(entertainmentItemSchema.omit({ date: true })),
 });
+
+export const backupSchema = z.discriminatedUnion("version", [
+  z.object({
+    ...backupEnvelope,
+    version: z.literal(1),
+    data: legacyAppDataSchema,
+  }),
+  z.object({
+    ...backupEnvelope,
+    version: z.literal(2),
+    data: appDataSchema,
+  }),
+]);
 
 export type BackupFile = {
   format: "worklife-backup";
-  version: 1;
+  version: 2;
   exportedAt: string;
   counts: ModuleCounts;
   data: AppData;
@@ -52,7 +72,7 @@ export function createBackup(data: AppData, exportedAt = new Date()): BackupFile
   const counts = countData(data);
   return {
     format: "worklife-backup",
-    version: 1,
+    version: 2,
     exportedAt: exportedAt.toISOString(),
     counts,
     data,
@@ -86,7 +106,18 @@ export function parseBackup(text: string): BackupFile {
   if (!parsed.success) {
     throw new Error("备份文件格式不正确或版本不兼容。");
   }
-  const data = parsed.data.data as AppData;
+  let data: AppData;
+  if (parsed.data.version === 1) {
+    data = {
+      ...(parsed.data.data as Omit<AppData, "entertainmentItems">),
+      entertainmentItems: parsed.data.data.entertainmentItems.map((item) => ({
+        ...item,
+        date: localDateKey(new Date(item.createdAt)) as EntertainmentItem["date"],
+      })) as EntertainmentItem[],
+    };
+  } else {
+    data = parsed.data.data as AppData;
+  }
   if (hasDuplicateIds(data)) {
     throw new Error("备份文件包含重复记录，无法安全恢复。");
   }
@@ -98,6 +129,7 @@ export function parseBackup(text: string): BackupFile {
 
   return {
     ...parsed.data,
+    version: 2,
     data,
   };
 }
