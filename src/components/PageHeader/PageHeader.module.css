@@ -1,0 +1,59 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+  padding-left: 14px;
+}
+
+.header::before {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 0;
+  width: 3px;
+  border-radius: 99px;
+  background: var(--page-accent);
+  content: "";
+}
+
+.header p {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 11px;
+}
+
+.header h1 {
+  margin: 5px 0 6px;
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+}
+
+.header > div > span {
+  display: block;
+  max-width: 610px;
+  color: var(--app-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.action {
+  flex: 0 0 auto;
+  padding-top: 2px;
+}
+
+@media (max-width: 620px) {
+  .header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .action,
+  .action > * {
+    width: 100%;
+  }
+}

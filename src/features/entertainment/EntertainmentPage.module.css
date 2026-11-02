@@ -1,0 +1,139 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+.filters button {
+  min-height: 31px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: var(--app-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background: var(--app-surface-muted);
+}
+
+.filters button.selected {
+  border-color: var(--app-border);
+  color: var(--app-text);
+  background: var(--app-surface);
+}
+
+.filters span {
+  font-size: 9px;
+}
+
+.itemGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.itemCard {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  background: var(--app-surface);
+}
+
+.cover {
+  display: flex;
+  min-height: 178px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 14%, var(--app-surface));
+}
+
+.cover span {
+  font-size: 10px;
+}
+
+.itemBody {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 13px;
+}
+
+.itemTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.itemTop select {
+  max-width: 120px;
+  padding: 3px 5px;
+  border: 1px solid var(--app-border);
+  border-radius: 7px;
+  color: var(--app-muted);
+  background: var(--app-surface-muted);
+  font-size: 9px;
+}
+
+.itemBody h2 {
+  margin: 10px 0 3px;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemBody > p {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--app-muted);
+  font-size: 10px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.itemMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 10px;
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.itemMeta span {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.itemActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 9px;
+  border-top: 1px solid var(--app-border);
+}
+
+@media (max-width: 680px) {
+  .itemGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .itemCard {
+    grid-template-columns: 76px minmax(0, 1fr);
+  }
+}

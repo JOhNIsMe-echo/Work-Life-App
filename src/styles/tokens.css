@@ -1,0 +1,79 @@
+:root {
+  color-scheme: light dark;
+  --app-bg: light-dark(#eeeee8, #171b18);
+  --app-shell: light-dark(#f8f7f1, #202520);
+  --app-surface: light-dark(#fffefa, #262c27);
+  --app-surface-muted: light-dark(#eef0ea, #2b322c);
+  --app-text: light-dark(#20241f, #edf1eb);
+  --app-muted: light-dark(#687168, #a8b2a9);
+  --app-border: light-dark(#dcdfd7, #3c453e);
+  --app-border-strong: light-dark(#c9cec3, #556158);
+  --app-accent: #426a54;
+  --app-accent-soft: light-dark(#e2ece3, #30473a);
+  --app-on-accent: #f8fbf8;
+  --app-danger: light-dark(#9c403d, #ee9b95);
+  --app-danger-soft: light-dark(#f4e7e7, #432f31);
+  --app-warning: light-dark(#86622f, #e2bd7d);
+  --app-success: light-dark(#416b52, #a6cfb0);
+  --app-radius-sm: 8px;
+  --app-radius-md: 12px;
+  --app-radius-lg: 18px;
+  --app-space-1: 4px;
+  --app-space-2: 8px;
+  --app-space-3: 12px;
+  --app-space-4: 16px;
+  --app-space-5: 20px;
+  --app-space-6: 24px;
+  --app-space-8: 32px;
+  --app-shadow: light-dark(
+    0 18px 50px rgb(40 48 40 / 12%),
+    0 18px 50px rgb(0 0 0 / 34%)
+  );
+  --app-shadow-soft: light-dark(
+    0 6px 20px rgb(40 48 40 / 8%),
+    0 6px 20px rgb(0 0 0 / 22%)
+  );
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--app-bg);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--app-text);
+  background: var(--app-bg);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--page-accent) 40%, transparent);
+  outline-offset: 2px;
+}
+
+::selection {
+  color: var(--app-text);
+  background: color-mix(in srgb, var(--page-accent) 24%, transparent);
+}

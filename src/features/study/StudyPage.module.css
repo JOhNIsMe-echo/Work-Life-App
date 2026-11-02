@@ -1,0 +1,174 @@
+.overview {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.4fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.totalCard,
+.subjectCard {
+  padding: 16px;
+  border: 1px solid var(--app-border);
+  border-radius: 15px;
+  background: var(--app-surface);
+}
+
+.totalCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.totalCard > span,
+.sectionHead span {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.totalCard > strong {
+  margin: 6px 0 2px;
+  font-size: 31px;
+  font-weight: 500;
+}
+
+.totalCard > strong small {
+  color: var(--app-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.totalCard > p {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.sectionHead h2 {
+  margin: 2px 0 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.subjectRow + .subjectRow {
+  margin-top: 11px;
+}
+
+.subjectRow > div:first-child {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+
+.subjectRow strong {
+  color: var(--app-muted);
+  font-size: 9px;
+  font-weight: 400;
+}
+
+.progressTrack {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: var(--app-surface-muted);
+}
+
+.progressTrack span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--page-accent);
+}
+
+.emptySubjects {
+  margin: 24px 0 0;
+  color: var(--app-muted);
+  font-size: 11px;
+  text-align: center;
+}
+
+.sectionTitle {
+  margin-bottom: 10px;
+}
+
+.sectionTitle span {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.sectionTitle h2 {
+  margin: 2px 0 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.sessions {
+  display: grid;
+  gap: 8px;
+}
+
+.sessions > article {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr) auto;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--app-border);
+  border-radius: 13px;
+  background: var(--app-surface);
+}
+
+.sessions time {
+  display: flex;
+  flex-direction: column;
+  color: var(--app-text);
+  font-size: 12px;
+}
+
+.sessions time small {
+  margin-top: 2px;
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.sessionTop {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+}
+
+.progressPill {
+  padding: 2px 7px;
+  border-radius: 99px;
+  color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 11%, transparent);
+}
+
+.sessions h2 {
+  margin: 5px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sessions p {
+  margin: 5px 0 0;
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+@media (max-width: 720px) {
+  .overview {
+    grid-template-columns: 1fr;
+  }
+
+  .sessions > article {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .sessions > article > button {
+    grid-column: 2;
+    justify-self: start;
+  }
+}

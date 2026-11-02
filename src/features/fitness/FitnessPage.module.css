@@ -1,0 +1,202 @@
+.overview {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.4fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.totalCard,
+.chartCard {
+  padding: 16px;
+  border: 1px solid var(--app-border);
+  border-radius: 15px;
+  background: var(--app-surface);
+}
+
+.totalCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.totalCard > span,
+.sectionHead span {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.totalCard > strong {
+  margin: 6px 0 2px;
+  font-size: 31px;
+  font-weight: 500;
+}
+
+.totalCard > strong small {
+  color: var(--app-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.totalCard > p {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 11px;
+}
+
+.totalCard hr {
+  width: 100%;
+  margin: 16px 0 11px;
+  border: 0;
+  border-top: 1px solid var(--app-border);
+}
+
+.totalCard > div {
+  display: flex;
+  justify-content: space-between;
+  color: var(--app-muted);
+  font-size: 11px;
+}
+
+.totalCard > div strong {
+  color: var(--app-text);
+  font-weight: 500;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.sectionHead h2 {
+  margin: 2px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sectionHead small {
+  padding: 2px 8px;
+  border-radius: 99px;
+  color: var(--app-muted);
+  background: var(--app-surface-muted);
+  font-size: 9px;
+}
+
+.bars {
+  display: grid;
+  height: 132px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: end;
+  gap: 8px;
+  padding-top: 7px;
+}
+
+.bars > div {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr auto;
+  align-items: end;
+  gap: 4px;
+}
+
+.bars span {
+  display: block;
+  width: 100%;
+  min-height: 5px;
+  border-radius: 6px 6px 3px 3px;
+  background: color-mix(in srgb, var(--page-accent) 28%, var(--app-surface));
+}
+
+.bars .todayBar span {
+  background: var(--page-accent);
+}
+
+.bars small {
+  color: var(--app-muted);
+  font-size: 9px;
+  text-align: center;
+}
+
+.sectionTitle {
+  margin-bottom: 10px;
+}
+
+.sectionTitle span {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.sectionTitle h2 {
+  margin: 2px 0 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.records {
+  overflow: hidden;
+  border: 1px solid var(--app-border);
+  border-radius: 13px;
+  background: var(--app-surface);
+}
+
+.records article {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 72px 72px auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+}
+
+.records article + article {
+  border-top: 1px solid var(--app-border);
+}
+
+.recordIcon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, var(--app-surface));
+}
+
+.records strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.records p {
+  margin: 2px 0 0;
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.value {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 3px;
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.value strong {
+  color: var(--app-text);
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .overview {
+    grid-template-columns: 1fr;
+  }
+
+  .records article {
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+  }
+
+  .records .value {
+    display: none;
+  }
+}

@@ -1,0 +1,222 @@
+.focus {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 18px;
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--page-accent) 8%, var(--app-surface));
+}
+
+.focusEmoji {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  place-items: center;
+  border: 1px solid var(--app-border);
+  border-radius: 50%;
+  background: var(--app-surface);
+  font-size: 26px;
+}
+
+.focus > div > span,
+.timeline small {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.focus h2 {
+  margin: 3px 0 4px;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.focus p {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 11px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 9px;
+}
+
+.tags span {
+  padding: 3px 8px;
+  border-radius: 99px;
+  color: var(--app-muted);
+  background: var(--app-surface);
+  font-size: 9px;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.sectionTitle > div > span,
+.sectionTitle > small {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.sectionTitle h2 {
+  margin: 2px 0 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.weekRow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.weekRow > div {
+  display: flex;
+  min-height: 88px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1px solid var(--app-border);
+  border-radius: 11px;
+  background: var(--app-surface);
+}
+
+.weekRow .today {
+  border-color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 11%, var(--app-surface));
+}
+
+.weekRow span,
+.weekRow small {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.weekRow strong {
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.timeline {
+  overflow: hidden;
+  border: 1px solid var(--app-border);
+  border-radius: 13px;
+  background: var(--app-surface);
+}
+
+.timeline button {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 46px 26px minmax(0, 1fr);
+  gap: 9px;
+  align-items: start;
+  padding: 13px 14px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.timeline button + button {
+  border-top: 1px solid var(--app-border);
+}
+
+.timeline button:hover {
+  background: var(--app-surface-muted);
+}
+
+.timeline time {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.timeline button > span:nth-of-type(1) {
+  font-size: 18px;
+}
+
+.timeline button > span:last-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.timeline strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.timeline small {
+  margin-top: 2px;
+}
+
+.moodChoices {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  padding: 0;
+  border: 0;
+}
+
+.moodChoices legend {
+  margin-bottom: 8px;
+  color: var(--app-muted);
+  font-size: 11px;
+}
+
+.moodChoices label {
+  display: flex;
+  min-height: 72px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 1px solid var(--app-border);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.moodChoices label:has(input:checked),
+.moodChoices .chosenMood {
+  border-color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 10%, transparent);
+}
+
+.moodChoices input {
+  position: absolute;
+  opacity: 0;
+}
+
+.moodChoices span {
+  font-size: 24px;
+}
+
+.moodChoices small {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+@media (max-width: 620px) {
+  .focus {
+    align-items: flex-start;
+  }
+
+  .weekRow {
+    gap: 3px;
+  }
+
+  .weekRow small {
+    display: none;
+  }
+}

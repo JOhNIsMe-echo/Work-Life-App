@@ -1,0 +1,66 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid var(--app-border-strong);
+  border-radius: 10px;
+  background: var(--app-surface);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    filter 140ms ease;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.sm {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+
+.md {
+  min-height: 38px;
+  padding: 0 14px;
+  font-size: 12px;
+}
+
+.primary {
+  border-color: var(--page-accent);
+  color: var(--app-on-accent);
+  background: var(--page-accent);
+}
+
+.primary:hover:not(:disabled) {
+  filter: brightness(0.96);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--app-surface-muted);
+}
+
+.ghost {
+  border-color: transparent;
+  color: var(--page-accent);
+  background: transparent;
+}
+
+.ghost:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--page-accent) 9%, transparent);
+}
+
+.danger {
+  border-color: color-mix(in srgb, var(--app-danger) 60%, var(--app-border));
+  color: var(--app-danger);
+  background: transparent;
+}
+
+.danger:hover:not(:disabled) {
+  background: var(--app-danger-soft);
+}

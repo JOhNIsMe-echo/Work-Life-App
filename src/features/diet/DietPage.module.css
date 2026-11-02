@@ -1,0 +1,132 @@
+.dateSwitcher {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 14px auto;
+  padding: 4px;
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
+  background: var(--app-surface);
+}
+
+.dateSwitcher > div {
+  display: flex;
+  min-width: 130px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dateSwitcher strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.dateSwitcher small {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.mealGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.mealCard {
+  min-height: 168px;
+  padding: 14px;
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  background: var(--app-surface);
+}
+
+.mealHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--app-border);
+}
+
+.mealHead span {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.mealHead h2 {
+  margin: 2px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.emptyMeal {
+  display: flex;
+  min-height: 105px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: var(--app-muted);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.foodList {
+  display: grid;
+}
+
+.foodRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--app-border);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.foodRow:last-child {
+  border-bottom: 0;
+}
+
+.foodDot {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 5px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--page-accent);
+}
+
+.foodRow > span:last-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.foodRow strong {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.foodRow small {
+  margin-top: 2px;
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+@media (max-width: 660px) {
+  .mealGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dateSwitcher {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

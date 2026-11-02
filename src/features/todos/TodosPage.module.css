@@ -1,0 +1,211 @@
+.summary {
+  display: grid;
+  grid-template-columns: 130px minmax(220px, 1fr) 130px;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  background: var(--app-surface);
+}
+
+.summary > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.summary span {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.summary strong {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.completion > div:first-child {
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.completion strong {
+  font-size: 13px;
+}
+
+.progress {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: var(--app-surface-muted);
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--page-accent);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+.filters button {
+  min-height: 31px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: var(--app-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background: var(--app-surface-muted);
+}
+
+.filters button.selected {
+  border-color: var(--app-border);
+  color: var(--app-text);
+  background: var(--app-surface);
+}
+
+.filters span {
+  font-size: 9px;
+}
+
+.groups {
+  display: grid;
+  gap: 18px;
+}
+
+.groupHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.groupHead h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.groupHead span {
+  color: var(--app-muted);
+  font-size: 10px;
+}
+
+.taskList {
+  display: grid;
+  gap: 7px;
+}
+
+.taskRow {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 32px;
+  align-items: start;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
+  background: var(--app-surface);
+}
+
+.taskCheck {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid var(--app-border-strong);
+  border-radius: 7px;
+  color: var(--app-on-accent);
+  background: transparent;
+  cursor: pointer;
+}
+
+.done .taskCheck {
+  border-color: var(--page-accent);
+  background: var(--page-accent);
+}
+
+.taskMain {
+  min-width: 0;
+}
+
+.taskMain > strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.taskMain p {
+  margin: 3px 0 7px;
+  color: var(--app-muted);
+  font-size: 11px;
+}
+
+.taskMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.taskMeta b {
+  padding: 2px 7px;
+  border-radius: 99px;
+  color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 11%, transparent);
+  font-weight: 400;
+}
+
+.taskMeta .warning {
+  color: var(--app-danger);
+  background: var(--app-danger-soft);
+}
+
+.editButton {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  color: var(--app-muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.editButton:hover {
+  color: var(--app-text);
+  background: var(--app-surface-muted);
+}
+
+.done .taskMain {
+  opacity: 0.55;
+}
+
+.done .taskMain > strong {
+  text-decoration: line-through;
+}
+
+@media (max-width: 620px) {
+  .summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .completion {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}

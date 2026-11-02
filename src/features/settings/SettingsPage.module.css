@@ -1,0 +1,289 @@
+.statusCard {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 12px;
+  padding: 13px 15px;
+  border: 1px solid var(--app-border);
+  border-radius: 13px;
+  background: var(--app-surface);
+}
+
+.statusIcon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, var(--app-surface));
+}
+
+.statusCard > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.statusCard > div > span,
+.statusCard > div > p {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.statusCard > div > strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.statusCard > div > p {
+  margin: 2px 0 0;
+}
+
+.goodPill {
+  padding: 3px 8px;
+  border-radius: 99px;
+  color: var(--page-accent);
+  background: color-mix(in srgb, var(--page-accent) 12%, transparent);
+  font-size: 9px;
+}
+
+.dataGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.9fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.card,
+.settingsCard {
+  padding: 15px;
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  background: var(--app-surface);
+}
+
+.sectionHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.sectionHead > div > span {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.sectionHead h2 {
+  margin: 2px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sectionHead small {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.counts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.counts > div {
+  display: flex;
+  flex-direction: column;
+  padding: 9px;
+  border-radius: 9px;
+  background: var(--app-surface-muted);
+}
+
+.counts strong {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.counts span,
+.muted {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.muted {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.warningNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin: 10px 0 0;
+  color: var(--app-danger);
+  font-size: 9px;
+}
+
+.settingsCard {
+  margin-top: 9px;
+}
+
+.themeSwitch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 9px;
+  background: var(--app-surface-muted);
+}
+
+.themeSwitch button {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: var(--app-muted);
+  background: transparent;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.themeSwitch button.selected {
+  border-color: var(--app-border);
+  color: var(--app-text);
+  background: var(--app-surface);
+}
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.colorControl {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 7px;
+  border: 1px solid var(--app-border);
+  border-radius: 9px;
+  background: var(--app-surface-muted);
+  font-size: 10px;
+}
+
+.colorControl i {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+}
+
+.colorControl span {
+  flex: 1;
+}
+
+.colorControl input {
+  width: 30px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--app-border);
+  border-radius: 6px;
+  background: transparent;
+}
+
+.preview {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 10px;
+  padding: 9px;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--page-accent) 10%, var(--app-surface));
+}
+
+.preview > span {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.preview > i {
+  width: 48px;
+  height: 4px;
+  margin-left: auto;
+  border-radius: 99px;
+  background: var(--page-accent);
+}
+
+.dangerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-color: color-mix(in srgb, var(--app-danger) 25%, var(--app-border));
+}
+
+.dangerRow > div > span {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.dangerRow h2 {
+  margin: 2px 0 3px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.dangerCallout {
+  margin-bottom: 15px;
+  padding: 12px;
+  border: 1px solid color-mix(in srgb, var(--app-danger) 30%, var(--app-border));
+  border-radius: 10px;
+  color: var(--app-danger);
+  background: var(--app-danger-soft);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+  .dataGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .colorGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .sectionHead,
+  .dangerRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .themeSwitch {
+    width: 100%;
+  }
+
+  .themeSwitch button {
+    flex: 1;
+  }
+
+  .colorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .counts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

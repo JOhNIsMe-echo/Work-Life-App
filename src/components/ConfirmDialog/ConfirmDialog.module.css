@@ -1,0 +1,92 @@
+.layer {
+  position: fixed;
+  z-index: 70;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgb(17 22 18 / 42%);
+}
+
+.dialog {
+  position: relative;
+  display: grid;
+  width: min(430px, 100%);
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-lg);
+  color: var(--app-text);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow);
+}
+
+.icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 11px;
+  color: var(--app-danger);
+  background: var(--app-danger-soft);
+}
+
+.dialog h2 {
+  margin: 1px 0 6px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.dialog p {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.actions {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.primary,
+.secondary,
+.danger {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--app-border-strong);
+  border-radius: 10px;
+  background: var(--app-surface);
+  cursor: pointer;
+}
+
+.primary {
+  border-color: var(--page-accent);
+  color: var(--app-on-accent);
+  background: var(--page-accent);
+}
+
+.danger {
+  border-color: var(--app-danger);
+  color: var(--app-danger);
+}
+
+.secondary:hover {
+  background: var(--app-surface-muted);
+}
+
+.danger:disabled,
+.primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
