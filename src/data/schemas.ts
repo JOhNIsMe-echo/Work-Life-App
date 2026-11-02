@@ -42,6 +42,7 @@ export const dietEntrySchema = z.object({
   meal: z.enum(["breakfast", "lunch", "dinner", "snack"]),
   food: z.string().trim().min(1),
   portion: z.string().optional(),
+  price: z.number().nonnegative().optional(),
   recordedAt: isoDateTime.optional(),
   notes: z.string().optional(),
 });

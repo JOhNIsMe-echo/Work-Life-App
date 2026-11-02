@@ -53,6 +53,7 @@ function makeData(id: string): AppData {
         date: "2026-11-01",
         meal: "lunch",
         food: "沙拉",
+        price: 18.5,
         recordedAt: timestamp,
         createdAt: timestamp,
         updatedAt: timestamp,
@@ -125,6 +126,7 @@ describe("backup and restore", () => {
     const raw = await readAllData(database);
     const parsed = parseBackup(JSON.stringify(createBackup(raw)));
     expect(parsed.data.todos[0]?.title).toBe("备份待办");
+    expect(parsed.data.dietEntries[0]?.price).toBe(18.5);
     expect(parsed.data.settings.pageColors.home).toBe("#123456");
   });
 

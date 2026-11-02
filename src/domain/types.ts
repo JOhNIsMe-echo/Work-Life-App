@@ -44,6 +44,7 @@ export interface DietEntry extends BaseRecord {
   meal: MealType;
   food: string;
   portion?: string;
+  price?: number;
   recordedAt?: string;
   notes?: string;
 }

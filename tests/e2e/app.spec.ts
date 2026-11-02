@@ -105,11 +105,14 @@ test("creates all core record types and restores them after a new page opens", a
   await expect(page.getByText("户外跑步")).toBeVisible();
 
   await page.getByRole("link", { name: "饮食记录" }).click();
+  await expect(page.getByText(/星期/)).toBeVisible();
   await page.getByRole("button", { name: "添加食物" }).click();
   await page.getByLabel("吃了什么").fill("鸡胸肉沙拉");
   await page.getByLabel("大致份量").fill("1 份");
+  await page.getByLabel("价格（元，可不填）").fill("18.50");
   await page.getByRole("button", { name: "保存" }).click();
   await expect(page.getByText("鸡胸肉沙拉")).toBeVisible();
+  await expect(page.getByText("¥18.50").first()).toBeVisible();
 
   await page.getByRole("link", { name: "游戏娱乐" }).click();
   await page.getByRole("button", { name: "添加项目" }).click();

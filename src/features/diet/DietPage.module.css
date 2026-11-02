@@ -1,13 +1,48 @@
+.dayOverview {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
 .dateSwitcher {
   display: flex;
-  width: fit-content;
+  min-width: 235px;
   align-items: center;
   gap: 9px;
-  margin: 0 0 14px auto;
   padding: 4px;
   border: 1px solid var(--app-border);
   border-radius: 12px;
   background: var(--app-surface);
+}
+
+.dayMetrics {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dayMetrics article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 14px;
+  border: 1px solid var(--app-border);
+  border-radius: 11px;
+  background: var(--app-surface);
+}
+
+.dayMetrics span {
+  color: var(--app-muted);
+  font-size: 9px;
+}
+
+.dayMetrics strong {
+  margin-top: 3px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .dateSwitcher > div {
@@ -37,7 +72,7 @@
   min-height: 168px;
   padding: 14px;
   border: 1px solid var(--app-border);
-  border-radius: 14px;
+  border-radius: 12px;
   background: var(--app-surface);
 }
 
@@ -58,6 +93,18 @@
 .mealHead h2 {
   margin: 2px 0 0;
   font-size: 15px;
+  font-weight: 500;
+}
+
+.mealActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mealActions > strong {
+  color: var(--app-muted);
+  font-size: 10px;
   font-weight: 500;
 }
 
@@ -103,9 +150,10 @@
   background: var(--page-accent);
 }
 
-.foodRow > span:last-child {
+.foodCopy {
   display: flex;
   min-width: 0;
+  flex: 1;
   flex-direction: column;
 }
 
@@ -120,13 +168,29 @@
   font-size: 9px;
 }
 
+.foodPrice {
+  flex: 0 0 auto;
+  color: var(--app-muted);
+  font-size: 9px;
+  font-weight: 400;
+}
+
 @media (max-width: 660px) {
+  .dayOverview {
+    flex-direction: column;
+  }
+
   .mealGrid {
     grid-template-columns: 1fr;
   }
 
   .dateSwitcher {
     width: 100%;
+    min-width: 0;
     justify-content: space-between;
+  }
+
+  .dayMetrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

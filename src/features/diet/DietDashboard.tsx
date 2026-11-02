@@ -22,6 +22,18 @@ const MEALS: Array<{
   { value: "snack", label: "加餐", helper: "水果、饮料或小零食" },
 ];
 
+const currency = new Intl.NumberFormat("zh-CN", {
+  style: "currency",
+  currency: "CNY",
+  minimumFractionDigits: 2,
+});
+const fullDateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  weekday: "long",
+});
+
 type EditorState = {
   entry: DietEntry | null;
   meal: MealType;
@@ -40,6 +52,7 @@ export function DietDashboard() {
       ),
     );
   const recordedMeals = new Set(entries.map((entry) => entry.meal));
+  const totalPrice = entries.reduce((total, entry) => total + (entry.price ?? 0), 0);
   const isToday = date === todayKey();
 
   function moveDate(days: number) {
@@ -87,33 +100,53 @@ export function DietDashboard() {
         }
       />
 
-      <div className={styles.dateSwitcher}>
-        <Button
-          size="sm"
-          variant="ghost"
-          aria-label="前一天"
-          onClick={() => moveDate(-1)}
-        >
-          <ChevronLeft size={16} aria-hidden="true" />
-        </Button>
-        <div>
-          <strong>{isToday ? "今天" : format(parseISO(date), "M月d日")}</strong>
-          <small>{format(parseISO(date), "yyyy年 · EEEE")}</small>
+      <div className={styles.dayOverview}>
+        <div className={styles.dateSwitcher}>
+          <Button
+            size="sm"
+            variant="ghost"
+            aria-label="前一天"
+            onClick={() => moveDate(-1)}
+          >
+            <ChevronLeft size={16} aria-hidden="true" />
+          </Button>
+          <div>
+            <strong>{isToday ? "今天" : format(parseISO(date), "M月d日")}</strong>
+            <small>{fullDateFormatter.format(parseISO(date))}</small>
+          </div>
+          <Button
+            size="sm"
+            variant="ghost"
+            aria-label="后一天"
+            disabled={isToday}
+            onClick={() => moveDate(1)}
+          >
+            <ChevronRight size={16} aria-hidden="true" />
+          </Button>
         </div>
-        <Button
-          size="sm"
-          variant="ghost"
-          aria-label="后一天"
-          disabled={isToday}
-          onClick={() => moveDate(1)}
-        >
-          <ChevronRight size={16} aria-hidden="true" />
-        </Button>
+        <div className={styles.dayMetrics}>
+          <article>
+            <span>已记录餐次</span>
+            <strong>{recordedMeals.size} / 4</strong>
+          </article>
+          <article>
+            <span>食物条目</span>
+            <strong>{entries.length}</strong>
+          </article>
+          <article>
+            <span>当日花费</span>
+            <strong>{currency.format(totalPrice)}</strong>
+          </article>
+        </div>
       </div>
 
       <div className={styles.mealGrid}>
         {MEALS.map((meal) => {
           const mealEntries = entries.filter((entry) => entry.meal === meal.value);
+          const mealTotal = mealEntries.reduce(
+            (total, entry) => total + (entry.price ?? 0),
+            0,
+          );
           return (
             <article
               key={meal.value}
@@ -126,13 +159,18 @@ export function DietDashboard() {
                   <span>{meal.helper}</span>
                   <h2>{meal.label}</h2>
                 </div>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => openEditor(meal.value)}
-                >
-                  添加
-                </Button>
+                <div className={styles.mealActions}>
+                  {mealEntries.length > 0 ? (
+                    <strong>{currency.format(mealTotal)}</strong>
+                  ) : null}
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => openEditor(meal.value)}
+                  >
+                    添加
+                  </Button>
+                </div>
               </div>
               {mealEntries.length === 0 ? (
                 <button
@@ -153,13 +191,18 @@ export function DietDashboard() {
                       onClick={() => openEditor(meal.value, entry)}
                     >
                       <span className={styles.foodDot} aria-hidden="true" />
-                      <span>
+                      <span className={styles.foodCopy}>
                         <strong>{entry.food}</strong>
                         <small>
                           {entry.portion || "份量未记录"}
                           {entry.notes ? ` · ${entry.notes}` : ""}
                         </small>
                       </span>
+                      <b className={styles.foodPrice}>
+                        {entry.price === undefined
+                          ? "未记价格"
+                          : currency.format(entry.price)}
+                      </b>
                     </button>
                   ))}
                 </div>

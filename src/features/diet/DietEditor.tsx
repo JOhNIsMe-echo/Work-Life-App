@@ -34,6 +34,9 @@ export function DietEditor({
   const [meal, setMeal] = useState<MealType>(entry?.meal ?? defaultMeal);
   const [food, setFood] = useState(entry?.food ?? "");
   const [portion, setPortion] = useState(entry?.portion ?? "");
+  const [price, setPrice] = useState(
+    entry?.price === undefined ? "" : String(entry.price),
+  );
   const [notes, setNotes] = useState(entry?.notes ?? "");
   const [date, setDate] = useState(entry?.date ?? defaultDate);
   const [time, setTime] = useState("12:00");
@@ -46,6 +49,14 @@ export function DietEditor({
       setError("请输入吃了什么。");
       return;
     }
+    const parsedPrice = price.trim() === "" ? undefined : Number(price);
+    if (
+      parsedPrice !== undefined &&
+      (!Number.isFinite(parsedPrice) || parsedPrice < 0)
+    ) {
+      setError("价格必须是大于或等于 0 的数字。");
+      return;
+    }
 
     setSaving(true);
     try {
@@ -54,6 +65,7 @@ export function DietEditor({
         meal,
         food: food.trim(),
         portion: portion.trim() || undefined,
+        price: parsedPrice,
         recordedAt: new Date(`${date}T${time || "12:00"}:00`).toISOString(),
         notes: notes.trim() || undefined,
       };
@@ -141,14 +153,25 @@ export function DietEditor({
             />
           </label>
           <label className="field">
-            <span>记录时间</span>
+            <span>价格（元，可不填）</span>
             <input
-              type="time"
-              value={time}
-              onChange={(event) => setTime(event.target.value)}
+              type="number"
+              min="0"
+              step="0.01"
+              value={price}
+              placeholder="例如：18.50"
+              onChange={(event) => setPrice(event.target.value)}
             />
           </label>
         </div>
+        <label className="field">
+          <span>记录时间</span>
+          <input
+            type="time"
+            value={time}
+            onChange={(event) => setTime(event.target.value)}
+          />
+        </label>
         <label className="field">
           <span>备注</span>
           <textarea

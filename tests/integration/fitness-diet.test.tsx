@@ -41,10 +41,12 @@ describe("fitness and diet records", () => {
     await user.click(await screen.findByRole("button", { name: "添加食物" }));
     await user.type(screen.getByLabelText("吃了什么"), "鸡胸肉沙拉");
     await user.type(screen.getByLabelText("大致份量"), "1 份");
+    await user.type(screen.getByLabelText("价格（元，可不填）"), "18.50");
     await user.click(screen.getByRole("button", { name: "保存" }));
 
     expect(await screen.findByText("鸡胸肉沙拉")).toBeInTheDocument();
     expect(screen.getByText("午餐")).toBeInTheDocument();
+    expect(screen.getAllByText("¥18.50").length).toBeGreaterThanOrEqual(2);
 
     await user.click(screen.getByRole("link", { name: "首页总览" }));
     expect(await screen.findByText("已记录 1 / 4 餐")).toBeInTheDocument();
